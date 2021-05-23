@@ -5,7 +5,7 @@ RSpec.describe 'Items API' do
     id = create(:merchant).id
     create_list(:item, 21, merchant_id: id)
 
-    get "/api/v1/merchants/#{id}/items" # I think it should just be items, not namespaced!
+    get "/api/v1/items"
 
     expect(response).to be_successful
 
@@ -36,7 +36,7 @@ RSpec.describe 'Items API' do
     create_list(:item, 21, merchant_id: id)
     item_id = Item.last.id
 
-    get "/api/v1/merchants/#{id}/items/#{item_id}"
+    get "/api/v1/items/#{item_id}"
 
     item = JSON.parse(response.body, symbolize_names: true)
 
@@ -58,7 +58,7 @@ RSpec.describe 'Items API' do
     expect(item[:merchant_id]).to eq(id)
   end
 
-  xit "can create an item" do
+  it "can create an item" do
     merchant    = create(:merchant)
     item_params = ({
       name: 'Imported Dollar Plant',
@@ -69,7 +69,7 @@ RSpec.describe 'Items API' do
 
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/merchants/#{merchant.id}/items", headers: headers, params: JSON.generate(item: item_params)
+    post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
 
     created_item = Item.last
 
@@ -87,7 +87,7 @@ RSpec.describe 'Items API' do
     item_params    = { unit_price: 4586}
     headers        = {"CONTENT_TYPE" => "application/json"}
 
-    patch "/api/v1/merchants/#{merchant_id}/items/#{item.id}", headers: headers, params: JSON.generate({item: item_params})
+    patch "/api/v1/items/#{item.id}", headers: headers, params: JSON.generate({item: item_params})
     item = Item.find_by(id: item.id)
 
     expect(response).to be_successful
@@ -101,14 +101,14 @@ RSpec.describe 'Items API' do
 
     expect(Item.count).to eq(1)
 
-    delete "/api/v1/merchants/#{merchant_id}/items/#{item.id}"
+    delete "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
     expect(Item.count).to eq(0)
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  xit "gets the merchant data for a given item ID" do
+  it "gets the merchant data for a given item ID" do
     merchant = create(:merchant)
     create_list(:item, 21, merchant_id: merchant.id)
     item_id = Item.last.id

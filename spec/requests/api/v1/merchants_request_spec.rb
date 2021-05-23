@@ -38,36 +38,21 @@ RSpec.describe "Merchants API" do
   end
 
   xit "returns error if record does not exist" do
-    # id = create(:merchant).id
-
-    get "/api/v1/merchants/#{id}"
-
-    merchant = JSON.parse(response.body, symbolize_names: true)
-
-    expect(response).to have_http_status(404)
-    expect(response.body).to match(/Couldn't find Merchant/)
-  end
-
-  xit "can get items that belong to one merchant" do
-  # complete this one after the create action for an item
-  # slighlty confused as to how this endpoint differs from the one below
     id = create(:merchant).id
-    create_list(:items, merchant_id: id)
 
-    get "/api/v1/merchants/#{id}/items"
+    get "/api/v1/merchants/#{id + 1}"
+
+    expect(response).to_not be_successful
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response).to be_successful
-
-    expect(merchant).to have_key(:id)
-    expect(merchant[:id]).to eq(id)
-
-    expect(merchant).to have_key(:name)
-    expect(merchant[:name]).to be_a(String)
+    # expect(response).to have_http_status(404)
+    # expect(response.body).to match(/Couldn't find Merchant/)
+    expect(response).to raise_error(ActiveRecord::RecordNotFound)
+    expect(response).to have_content("Couldn't find Merchant with 'id'=#{id}")
   end
 
-  it "gets all items for one merchant" do
+  it "gets all items for a given merchant id" do
     id = create(:merchant).id
     create_list(:item, 10, merchant_id: id)
 

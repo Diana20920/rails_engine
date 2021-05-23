@@ -60,14 +60,15 @@ The following is a depiction of our Database Schema
 
 ### Section Two
 Non-RESTful Search Endpoints. These endpoints will make use of query parameters.
-<!-- - `GET /api/vi/items/find`, find a single item which matches a search term -->
 - `GET /api/vi/items/find_all`, find all items which match a search term
 - `GET /api/vi/merchants/find`, find a single merchant which matches a search term
-<!-- - `GET /api/vi/merchants/find_all`, find all merchants which match a search term -->
 
 ### Section Three
 Non-RESTful Business Intelligence Endpoints
-
+- `GET /api/v1/revenue/merchants?quantity=2`, return a number of merchants ranked by total revenue.
+- `GET /api/v1/merchants/most_items?quantity=2`, return a variable number of merchants ranked by total number of items sold.
+- `GET /api/v1/revenue/merchants/1`, return the total revenue for a single merchant
+- `GET /api/v1/revenue/items?quantity=1`, return a quantity of items ranked by descending revenue
 
 ## Built With
 - Ruby

@@ -50,10 +50,11 @@ RSpec.describe "Merchants API" do
 
   xit "can get items that belong to one merchant" do
   # complete this one after the create action for an item
+  # slighlty confused as to how this endpoint differs from the one below
     id = create(:merchant).id
     create_list(:items, merchant_id: id)
 
-    get "/api/v1/merchants/#{id}"
+    get "/api/v1/merchants/#{id}/items"
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 

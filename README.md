@@ -1,24 +1,82 @@
-# README
+# Rails Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About this Project
 
-Things you may want to cover:
+This project simulates the back-end for an E-Commerce site and is currently for demonstration purposes; only available locally.
 
-* Ruby version
+**Note:** This is an ongoing project at the moment and this README will be updated.
 
-* System dependencies
+## Author
+- **Diana Buffone**
 
-* Configuration
+  [GitHub](https://github.com/Diana20920) |
+  [LinkedIn](https://www.linkedin.com/in/dianabuffone/)
 
-* Database creation
+## Table of Contents
 
-* Database initialization
+  - [Getting Started](#getting-started)
+  - [Running the tests](#running-the-tests)
+  - [DB Schema](#db-schema)
+  - [Endpoints](#endpoints)
+  - [Built With](#built-with)
+  - [Versioning](#versioning)
 
-* How to run the test suite
+## Getting Started
 
-* Services (job queues, cache servers, search engines, etc.)
+To run the web application on your local machine, you can fork and clone down the repo and follow the installation instructions below.
 
-* Deployment instructions
+### Installing
 
-* ...
+- Install the gem packages  
+`bundle install`
+
+- More to be added here
+
+### Prerequisites
+
+To run this application you will need Ruby 2.5.3 and Rails 5.2.5
+
+## Running the tests
+RSpec testing suite is utilized for testing this application.
+- Run the RSpec suite to ensure everything is passing as expected  
+
+  `bundle exec rspec`
+
+## DB Schema
+The following is a depiction of our Database Schema
+
+## API Endpoints
+
+### Section One
+- `GET /api/v1/items`
+- `GET /api/v1/items/:id`
+- `GET /api/v1/items/:id/merchant`
+- `POST /api/v1/items`
+- `PATCH /api/v1/items/:id`
+- `DELETE /api/v1/items/:id`
+- `GET /api/v1/merchants`
+- `GET /api/v1/merchants/:id`
+- `GET /api/v1/merchants/:id/items`
+
+### Section Two
+Non-RESTful Search Endpoints. These endpoints will make use of query parameters.
+<!-- - `GET /api/vi/items/find`, find a single item which matches a search term -->
+- `GET /api/vi/items/find_all`, find all items which match a search term
+- `GET /api/vi/merchants/find`, find a single merchant which matches a search term
+<!-- - `GET /api/vi/merchants/find_all`, find all merchants which match a search term -->
+
+### Section Three
+Non-RESTful Business Intelligence Endpoints
+
+
+## Built With
+- Ruby
+- Rails
+- RSpec
+Revise this as more will likely be added
+
+## Gems Used
+
+## Versioning
+- Ruby 2.5.3
+- Rails 5.2.5

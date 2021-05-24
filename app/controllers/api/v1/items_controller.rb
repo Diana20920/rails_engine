@@ -1,10 +1,15 @@
 class Api::V1::ItemsController < ApplicationController
 
   def index
-    render json: ItemSerializer.new(Item.all.limit(20))
+    if params[:merchant_id]
+      merchant = Merchant.find(params[:merchant_id])
+      render json: ItemSerializer.new(merchant.items)
+    else
+      render json: ItemSerializer.new(Item.all.limit(20))
     # @merchant = Merchant.find(params[:merchant_id])
     # merchant_items = @merchant.items.limit(20)
     # render json: merchant_items
+    end
   end
 
   def show

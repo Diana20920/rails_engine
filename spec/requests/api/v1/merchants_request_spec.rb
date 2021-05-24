@@ -10,14 +10,14 @@ RSpec.describe "Merchants API" do
 
     merchants = JSON.parse(response.body, symbolize_names: true)
 
-    expect(merchants.count).to eq(20)
+    expect(merchants[:data].count).to eq(20)
 
-    merchants.each do |merchant|
+    merchants[:data].each do |merchant|
       expect(merchant).to have_key(:id)
-      expect(merchant[:id]).to be_an(Integer)
+      expect(merchant[:id]).to be_a(String)
 
-      expect(merchant).to have_key(:name)
-      expect(merchant[:name]).to be_a(String)
+      expect(merchant[:attributes]).to have_key(:name)
+      expect(merchant[:attributes][:name]).to be_a(String)
     end
   end
 
@@ -30,11 +30,11 @@ RSpec.describe "Merchants API" do
 
     expect(response).to be_successful
 
-    expect(merchant).to have_key(:id)
-    expect(merchant[:id]).to eq(id)
+    expect(merchant[:data]).to have_key(:id)
+    expect(merchant[:data][:id]).to eq("#{id}")
 
-    expect(merchant).to have_key(:name)
-    expect(merchant[:name]).to be_a(String)
+    expect(merchant[:data][:attributes]).to have_key(:name)
+    expect(merchant[:data][:attributes][:name]).to be_a(String)
   end
 
   xit "returns error if record does not exist" do
@@ -62,23 +62,23 @@ RSpec.describe "Merchants API" do
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expect(items.count).to eq(10)
+    expect(items[:data].count).to eq(10)
 
-    items.each do |item|
+    items[:data].each do |item|
       expect(item).to have_key(:id)
-      expect(item[:id]).to be_an(Integer)
+      expect(item[:id]).to be_an(String)
 
-      expect(item).to have_key(:name)
-      expect(item[:name]).to be_a(String)
+      expect(item[:attributes]).to have_key(:name)
+      expect(item[:attributes][:name]).to be_a(String)
 
-      expect(item).to have_key(:description)
-      expect(item[:description]).to be_a(String)
+      expect(item[:attributes]).to have_key(:description)
+      expect(item[:attributes][:description]).to be_a(String)
 
-      expect(item).to have_key(:unit_price)
-      expect(item[:unit_price]).to be_an(Float)
+      expect(item[:attributes]).to have_key(:unit_price)
+      expect(item[:attributes][:unit_price]).to be_an(Float)
 
-      expect(item).to have_key(:merchant_id)
-      expect(item[:merchant_id]).to eq(id)
+      expect(item[:attributes]).to have_key(:merchant_id)
+      expect(item[:attributes][:merchant_id]).to eq(id)
     end
   end
 end

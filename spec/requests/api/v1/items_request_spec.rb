@@ -125,4 +125,16 @@ RSpec.describe 'Items API' do
     expect(merchant[:data][:attributes]).to have_key(:name)
     expect(merchant[:data][:attributes][:name]).to be_a(String)
   end
+
+  it "shows 20 items at a time" do
+    id = create(:merchant).id
+    create_list(:item, 90, merchant_id: id)
+
+    get "/api/v1/items?per_page=50&page=2"
+
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+    expect(items[:data].count).to eq(40)
+  end
 end

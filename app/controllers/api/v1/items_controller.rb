@@ -4,8 +4,13 @@ class Api::V1::ItemsController < ApplicationController
     if params[:merchant_id]
       merchant = Merchant.find(params[:merchant_id])
       render json: ItemSerializer.new(merchant.items)
+    elsif params[:per_page]
+      page = params[:page].to_i
+      per_page = params[:per_page].to_i
+      # render json: ItemSerializer.new(Item.all.limit(20))
+      render json: ItemSerializer.new(Item.paginate(page, per_page))
     else
-      render json: ItemSerializer.new(Item.all.limit(20))
+      render json: ItemSerializer.new(Item.paginate)
     # @merchant = Merchant.find(params[:merchant_id])
     # merchant_items = @merchant.items.limit(20)
     # render json: merchant_items

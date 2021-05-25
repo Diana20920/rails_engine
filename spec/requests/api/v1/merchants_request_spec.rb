@@ -81,4 +81,13 @@ RSpec.describe "Merchants API" do
       expect(item[:attributes][:merchant_id]).to eq(id)
     end
   end
+
+  it 'shows 20 merchants at a time' do
+    create_list(:merchant, 95)
+
+    get "/api/v1/merchants?per_page=50&page=2"
+
+    merchants = JSON.parse(response.body, symbolize_names: true)
+    expect(merchants[:data].count).to eq(45)
+  end
 end

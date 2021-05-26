@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/api/v1/items/find_all', to: 'api/v1/items/search_items#index'
   namespace :api do
     namespace :v1 do
       resources :items do

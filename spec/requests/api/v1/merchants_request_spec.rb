@@ -37,7 +37,7 @@ RSpec.describe "Merchants API" do
     expect(merchant[:data][:attributes][:name]).to be_a(String)
   end
 
-  xit "returns error if record does not exist" do
+  it "returns error if record does not exist" do
     id = create(:merchant).id
 
     get "/api/v1/merchants/#{id + 1}"
@@ -46,10 +46,8 @@ RSpec.describe "Merchants API" do
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
-    # expect(response).to have_http_status(404)
-    # expect(response.body).to match(/Couldn't find Merchant/)
-    expect(response).to raise_error(ActiveRecord::RecordNotFound)
-    expect(response).to have_content("Couldn't find Merchant with 'id'=#{id}")
+    expect(response).to have_http_status(404)
+    expect(response.body).to match(/No record found for given ID/)
   end
 
   it "gets all items for a given merchant id" do

@@ -11,4 +11,15 @@ class Item < MerchantAndItem
     price.to_f
     where("unit_price > ?", price)
   end
+
+  def self.cost_less_than(price)
+    price.to_f
+    where("unit_price < ?", price)
+  end
+
+  def self.price_between(min, max)
+    min.to_f
+    max.to_f
+    where("unit_price > ? and unit_price < ?", "#{min}", "#{max}" )
+  end
 end

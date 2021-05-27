@@ -43,5 +43,21 @@ RSpec.describe 'Find Items' do
       end
       expect(matching_items.count).to eq(2)
     end
+
+    it 'That match a maximum price' do
+      maximum_price = "40"
+      get "/api/v1/items/find_all?max_price=#{minimum_price}"
+
+      expect(response).to be_successful
+      items = JSON.parse(response.body, symbolize_names: true)
+      matching_items = items[:data].map do |item|
+        expect(item).to have_key(:id)
+        expect(item[:id]).to be_an(String)
+
+        expect(item[:attributes]).to have_key(:name)
+        expect(item[:attributes][:name]).to be_a(String)
+      end
+      expect(matching_items.count).to eq(3)
+    end
   end
 end

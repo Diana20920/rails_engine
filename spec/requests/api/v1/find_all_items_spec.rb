@@ -30,7 +30,7 @@ RSpec.describe 'Find Items' do
 
     it 'That match a minimum price' do
       minimum_price = "50"
-      get "/api/v1/items/find?min_price=#{minimum_price}"
+      get "/api/v1/items/find_all?min_price=#{minimum_price}"
 
       expect(response).to be_successful
       items = JSON.parse(response.body, symbolize_names: true)

@@ -10,9 +10,9 @@ class Merchant < MerchantAndItem
 
   def total_revenue
     transactions
-    .where("invoices.status = 'shipped'")
-    .where("transactions.result = 'success'")
-    .pluck("(invoice_items.quantity * items.unit_price) AS revenue")
-    .sum
+    .where(Arel.sql("invoices.status = 'shipped'"))
+    .where(Arel.sql("transactions.result = 'success'"))
+    .sum(Arel.sql("invoice_items.quantity * items.unit_price"))
+    # Great caution should be taken to avoid SQL injection vulnerabilities. This method should not be used with unsafe values such as request parameters or model attributes.
   end
 end

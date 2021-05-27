@@ -23,4 +23,20 @@ RSpec.describe 'Find Merchant' do
       expect(merchant.count).to eq(1)
     end
   end
+
+  describe 'Sad Path' do
+    it 'Returns an object if no merchant is found' do
+      pen = create(:merchant, name: "Apricot Fountain Pens")
+      pie = create(:merchant, name: "Vegan Pies")
+
+      term = "blue"
+      get "/api/v1/merchants/find?name=#{term}"
+
+      expect(response).to be_successful
+      merchant = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchant[:data]).to_not have_key(:id)
+      expect(merchant[:data].empty?).to eq(true)
+    end 
+  end
 end

@@ -137,4 +137,22 @@ RSpec.describe 'Items API' do
     items = JSON.parse(response.body, symbolize_names: true)
     expect(items[:data].count).to eq(40)
   end
+
+  describe 'Edge Cases' do
+    it "Attribute missing when creating Item" do
+      merchant    = create(:merchant)
+      item_params = ({
+        description: 'Beautiful round leaves! This plant is said to help you get that cash in!',
+        unit_price: 10,
+        merchant_id: merchant.id
+        })
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(404)
+    end
+  end
 end

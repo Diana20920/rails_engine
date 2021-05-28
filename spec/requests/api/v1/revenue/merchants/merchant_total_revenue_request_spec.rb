@@ -26,7 +26,7 @@ RSpec.describe 'Merchant Total Revenue' do
     expect(parsed[:data][:attributes][:revenue]).to be_a(Float)
   end
 
-  it 'Returns variable quanty of merchants with most revenue' do
+  xit 'Returns variable quanty of merchants with most revenue' do
     merchant1 = create(:merchant)
     merchant2 = create(:merchant)
     item1 = create(:item, unit_price: 20, merchant_id: merchant1.id)

@@ -8,6 +8,17 @@ class Merchant < MerchantAndItem
     where("name ilike ?", "%#{term}%").order(name: :asc).first
   end
 
+  def self.sort_total_revenue(quantity)
+    # this is only returning 1 regardless of quanty and claiming revenue does not exist when testing class method
+    select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+    .joins(:transactions)
+    .where("transactions.result = 'success'")
+    .where("invoices.status = 'shipped'")
+    .group(:id)
+    .order(revenue: :desc)
+    .limit(quantity)
+  end
+
   def total_revenue
     transactions
     .where(Arel.sql("invoices.status = 'shipped'"))

@@ -35,7 +35,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
   gem 'rspec-pride'
   gem 'capybara'
-  gem 'launchy'
   gem 'simplecov'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'orderly'

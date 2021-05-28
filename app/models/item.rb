@@ -3,6 +3,8 @@ class Item < MerchantAndItem
   has_many :invoice_items, dependent: :destroy
   has_many :invoices, through: :invoice_items
 
+  validates :name, :description, :unit_price, :merchant_id, presence: { strict: true }
+
   def self.name_includes(term)
     where("name ilike ?", "%#{term}%")
   end
